@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('bio');
             $table->integer('number_of_badges');
             $table->timestamps();
+
+            $table->foreign('my_user_id')->references('id')->on('my_users')->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 
