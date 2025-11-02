@@ -13,10 +13,14 @@ return new class extends Migration
     {
         Schema::create('badges', function (Blueprint $table) {
             $table->id();
-            // Set up participant ID of person that achieved badge
             // Set up attempt ID of the attempt that earned the badge
             $table->string('title');
             $table->string('description');
+            $table->bigInteger('participant_id')->unsigned();
+
+            $table->foreign('participant_id')->references('id')->on('my_users')
+                ->onDelete('cascade')->onUpdate('cascade');
+
             $table->timestamps();
         });
     }

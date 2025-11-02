@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use function PHPUnit\Framework\returnArgument;
 
 class MyUser extends Model
 {
@@ -38,5 +39,10 @@ class MyUser extends Model
     public function likes()
     {
         return $this->hasMany(Like::class);
+    }
+
+    public function badges()
+    {
+        return $this->hasMany(Badge::class, 'participant_id');
     }
 }
