@@ -29,4 +29,9 @@ class MyUser extends Model
     {
         return $this->hasMany(Attempt::class);
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
