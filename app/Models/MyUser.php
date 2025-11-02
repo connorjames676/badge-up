@@ -24,4 +24,9 @@ class MyUser extends Model
         return $this->belongsToMany(Challenge::class,'challenge_my_user',
             'participant_id','challenge_id');
     }
+
+    public function attempts()
+    {
+        return $this->hasMany(Attempt::class);
+    }
 }
