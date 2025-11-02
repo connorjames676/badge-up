@@ -13,4 +13,9 @@ class Badge extends Model
     {
         return $this->belongsTo(MyUser::class, 'participant_id');
     }
+
+    public function challenge() 
+    {
+        return $this->belongsTo(Challenge::class);
+    }
 }

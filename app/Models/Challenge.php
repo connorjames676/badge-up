@@ -29,4 +29,9 @@ class Challenge extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function badge()
+    {
+        return $this->hasOne(Badge::class);
+    } 
 }
