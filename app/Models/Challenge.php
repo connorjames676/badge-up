@@ -9,7 +9,7 @@ class Challenge extends Model
 {
     use HasFactory;
 
-    public function my_users()
+    public function myUser()
     {
         return $this->belongsTo(MyUser::class, 'coach_id');
     }

@@ -17,12 +17,12 @@ return new class extends Migration
             $table->string('description');
             $table->date('start_date');
             $table->date('end_date');
-            $table->timestamps();
-
-            $table->unsignedBigInteger('coach_id');
+            $table->bigInteger('coach_id')->unsigned();
 
             $table->foreign('coach_id')->references('id')->on('my_users')
                 ->onDelete('cascade')->onUpdate('cascade');
+
+            $table->timestamps();
         });
     }
 
