@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('password');
             $table->integer('age');
+            // Represents levels of access, all users are either a coach or participant
             $table->enum('role', ['coach','participant']);
             $table->timestamps();
         });

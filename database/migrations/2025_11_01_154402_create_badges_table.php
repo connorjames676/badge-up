@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('badges', function (Blueprint $table) {
             $table->id();
-            // Set up attempt ID of the attempt that earned the badge
             $table->string('title');
             $table->string('description');
             $table->bigInteger('participant_id')->unsigned();
