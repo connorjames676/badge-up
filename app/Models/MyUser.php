@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use function PHPUnit\Framework\returnArgument;
 
 class MyUser extends Model
 {
@@ -20,7 +19,7 @@ class MyUser extends Model
         return $this->hasMany(Challenge::class, 'coach_id');
     }
 
-    public function participantChallenges()
+    public function joinChallenges()
     {
         return $this->belongsToMany(Challenge::class,'challenge_my_user',
             'participant_id','challenge_id');
