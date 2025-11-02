@@ -13,4 +13,9 @@ class Attempt extends Model
     {
         return $this->belongsTo(MyUser::class);
     }
+
+    public function challenge()
+    {
+        return $this->belongsTo(Challenge::class);
+    }
 }

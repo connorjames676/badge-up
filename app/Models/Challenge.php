@@ -19,4 +19,9 @@ class Challenge extends Model
         return $this->belongsToMany(MyUser::class,'challenge_my_user', 
             'challenge_id', 'participant_id');
     }
+
+    public function attempts()
+    {
+        return $this->hasMany(Attempt::class);
+    }
 }
