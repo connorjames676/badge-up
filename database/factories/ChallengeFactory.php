@@ -25,4 +25,18 @@ class ChallengeFactory extends Factory
             'coach_id' => fake()->numberBetween(1, 50), //CHANGE if MyUser factory produces less than 50!
         ];
     }
+
+    /* Understanding of this function was found in Laravel 'Eloquent: Factories' Documentation from the lecture slides
+       and further available methods were found through the auto-complete in VSC that suggested methods. The function 
+       adds 4 randomly selected participants from the my_user table to a challenge to showcase a many-to-many 
+       relationship for CW1.
+     */
+    public function configure()
+    {
+        return $this->afterCreating(function ($challenge) 
+        {
+            $participants = MyUser::where('role', 'participant')->inRandomOrder()->take(4)->Get('id');
+            $challenge->participants()->attach($participants);
+        });
+    }
 }
