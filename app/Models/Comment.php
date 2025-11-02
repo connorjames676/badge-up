@@ -18,4 +18,9 @@ class Comment extends Model
     {
         return $this->belongsTo(Challenge::class);
     }
+
+    public function attempt()
+    {
+        return $this->belongsTo(Attempt::class);
+    }
 }

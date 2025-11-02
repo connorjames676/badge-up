@@ -18,4 +18,9 @@ class Attempt extends Model
     {
         return $this->belongsTo(Challenge::class);
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
