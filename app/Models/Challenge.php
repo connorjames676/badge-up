@@ -32,6 +32,6 @@ class Challenge extends Model
 
     public function badge()
     {
-        return $this->hasOne(Badge::class);
+        return $this->hasMany(Badge::class);
     } 
 }
