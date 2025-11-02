@@ -18,6 +18,9 @@ return new class extends Migration
             $table->integer('number_of_badges');
             $table->timestamps();
 
+            // Added because had an error
+            $table->unsignedBigInteger('my_user_id');
+
             $table->foreign('my_user_id')->references('id')->on('my_users')->onDelete('cascade')
                 ->onUpdate('cascade');
         });
