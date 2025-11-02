@@ -18,4 +18,10 @@ class MyUser extends Model
     {
         return $this->hasMany(Challenge::class, 'coach_id');
     }
+
+    public function more_challenges()
+    {
+        return $this->belongsToMany(Challenge::class,'challenge_my_user',
+            'participant_id','challenge_id');
+    }
 }
