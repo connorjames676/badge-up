@@ -23,5 +23,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call(MyUserTableSeeder::class);
+        $this->call(ProfileTableSeeder::class);
     }
 }
