@@ -18,6 +18,11 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->timestamps();
+
+            $table->unsignedBigInteger('coach_id');
+
+            $table->foreign('coach_id')->references('id')->on('my_users')
+                ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

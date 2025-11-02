@@ -13,4 +13,9 @@ class MyUser extends Model
     {
         return $this->hasOne(Profile::class);
     }    
+
+    public function challenges()
+    {
+        return $this->hasMany(Challenge::class, 'coach_id');
+    }
 }
