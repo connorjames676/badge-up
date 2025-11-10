@@ -12,6 +12,11 @@ class MyUserController extends Controller
         return view('users.index', ['users' => $users]);
     }
 
+    public function create()
+    {
+        return view('users.create');
+    }
+
     public function show($id)
     {
         $user = MyUser::findOrFail($id);
