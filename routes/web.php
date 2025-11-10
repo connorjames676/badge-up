@@ -8,3 +8,5 @@ Route::get('/', function () {
 });
 
 Route::get('/users', [MyUserController::class, 'index']);
+
+Route::get('/users/{id}', [MyUserController::class, 'show']);
