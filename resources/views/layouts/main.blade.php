@@ -63,6 +63,11 @@
         <div class="container-fluid text-center">
             <div class="row content">
                 <div class="col-sm-2 sidenav">
+            
+
+
+
+
                     <p><a href="#">Link</a></p>
                     <p><a href="#">Link</a></p>
                     <p><a href="#">Link</a></p>
@@ -73,6 +78,24 @@
                     <hr>
                     <h3>Test</h3>
                     <p>Lorem ipsum...</p>
+                    @if ($errors->any())
+                    <div>
+                        Errors:
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+
+                    @if (session('message'))
+                        <p><b>{{ session('message') }}</b></p>
+		            @endif
+
+                    <div>
+			            @yield('content')
+		            </div>
                 </div>
                 <div class="col-sm-2 sidenav">
                     <div class="well">
