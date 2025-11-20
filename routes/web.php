@@ -14,3 +14,7 @@ Route::get('/users/create', [MyUserController::class, 'create'])->name('users.cr
 Route::post('/users', [MyUserController::class, 'store'])->name('users.store');
 
 Route::get('/users/{id}', [MyUserController::class, 'show'])->name('users.show');
+
+Route::get('/homepage', function() {
+    return view('layouts.homepage');
+});
