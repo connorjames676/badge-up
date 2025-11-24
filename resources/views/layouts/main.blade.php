@@ -54,7 +54,7 @@
                         <li><a href="#">Contact</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        <li><a href="http://localhost/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                     </ul>
                 </div>
             </div>
@@ -74,10 +74,10 @@
                 </div>
                 <div class="col-sm-8 text-left"> 
                     <h1>Welcome</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <p>Fake content</p>
                     <hr>
                     <h3>Test</h3>
-                    <p>Lorem ipsum...</p>
+                    <p>More fake content...</p>
                     @if ($errors->any())
                     <div>
                         Errors:
@@ -97,14 +97,14 @@
 			            @yield('content')
 		            </div>
                 </div>
-                <div class="col-sm-2 sidenav">
+                <!--<div class="col-sm-2 sidenav">
                     <div class="well">
                         <p>ADS</p>
                     </div>
                     <div class="well">
                         <p>ADS</p>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
 
