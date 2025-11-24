@@ -2,17 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\MyUser;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
-class MyUserTableSeeder extends Seeder
+class UserTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $me = new MyUser;
+        $me = new User;
         $me->name = "Connor";
         $me->email = "2326609@swansea.ac.uk";
         $me->password = "password";
@@ -20,6 +20,6 @@ class MyUserTableSeeder extends Seeder
         $me->role = "coach";
         $me->save();
 
-        MyUser::factory()->count(50)->create();
+        User::factory()->count(50)->create();
     }
 }

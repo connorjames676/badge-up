@@ -17,10 +17,10 @@ return new class extends Migration
             $table->string('description');
             // Checks if coach has approved of the challenge attempt
             $table->boolean('approved')->default(false); 
-            $table->bigInteger('my_user_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('challenge_id')->unsigned();
 
-            $table->foreign('my_user_id')->references('id')->on('my_users')
+            $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('cascade')->onUpdate('cascade');
 
             $table->foreign('challenge_id')->references('id')->on('challenges')

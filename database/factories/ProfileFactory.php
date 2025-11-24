@@ -22,7 +22,7 @@ class ProfileFactory extends Factory
             'bio' => fake()->realText(100, 3),
             'number_of_badges' => fake()->randomFloat(0, 0, 50),
             // Generates a unique my_user_id 
-            'my_user_id' => fake()->unique()->numberBetween(2, 51), // Because Connor is id = 1
+            'user_id' => fake()->unique()->numberBetween(2, 51), // Because Connor is id = 1
         ];
     }
 }

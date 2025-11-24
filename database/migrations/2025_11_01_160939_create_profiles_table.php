@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('bio');
             $table->integer('number_of_badges');
             $table->timestamps();
-            $table->bigInteger('my_user_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
 
-            $table->foreign('my_user_id')->references('id')->on('my_users')
+            $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('cascade')->onUpdate('cascade');
         });
     }

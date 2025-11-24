@@ -15,7 +15,7 @@ class ProfileTableSeeder extends Seeder
         $myProfile = new Profile;
         $myProfile->bio = "I'm Connor!";
         $myProfile->number_of_badges = 14;
-        $myProfile->my_user_id = 1; // Connor
+        $myProfile->user_id = 1; // Connor
         $myProfile->save();
 
         Profile::factory()->count(50)->create();

@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
         
             $table->string('content');
-            $table->bigInteger('my_user_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('attempt_id')->unsigned();
 
-            $table->foreign('my_user_id')->references('id')->on('my_users')
+            $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('cascade')->onUpdate('cascade');
 
             $table->foreign('attempt_id')->references('id')->on('attempts')
