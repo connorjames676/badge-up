@@ -18,13 +18,16 @@ return new class extends Migration
             // Checks if coach has approved of the challenge attempt
             $table->boolean('approved')->default(false); 
             $table->bigInteger('user_id')->unsigned();
-            $table->bigInteger('challenge_id')->default(0);
+            // NEED TO UNCOMMENT THIS! ATTEMPTS ARE JUST POSTS RIGHT NOW!!!
+            //$table->bigInteger('challenge_id')->default(0);
+            $table->bigInteger('num_likes')->default(0);
+            $table->bigInteger('num_comments')->default(0);
 
             $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('cascade')->onUpdate('cascade');
 
-            $table->foreign('challenge_id')->references('id')->on('challenges')
-                ->onDelete('cascade')->onUpdate('cascade');
+            /*$table->foreign('challenge_id')->references('id')->on('challenges')
+                ->onDelete('cascade')->onUpdate('cascade');*/
 
             $table->timestamps();
         });

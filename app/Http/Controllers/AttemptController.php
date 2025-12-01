@@ -37,4 +37,44 @@ class AttemptController extends Controller
         
         return redirect()->route('attempts.index');
     }
+
+    public function show($id)
+    {
+        $attempt = Attempt::with('user')->with('comments')->findOrFail($id);
+        return view('attempts.show', ['attempt' => $attempt]);
+    }
+
+    public function edit($id)
+    {
+        $attempt = Attempt::findOrFail($id);
+        return view('attempts.edit', ['attempt' => $attempt]);
+    }
+
+    public function update($id, Request $request)
+    {
+        $validatedData = $request->validate([
+            'title' => 'sometimes|required|max:255',
+		    'description' => 'sometimes|required|max:255',
+		]);
+
+        $attempt = Attempt::findOrFail($id);
+        $attempt->title = $validatedData['title'];
+        $attempt->description = $validatedData['description'];
+        $attempt->save();
+        //$attempt->update($validatedData);
+        
+        session()->flash('message', 'Attempt was updated.');
+        
+        return redirect()->route('attempts.show', $attempt->id);
+    }
+
+    public function destroy($id)
+    {
+        $attempt = Attempt::findOrFail($id);
+        $attempt->delete();
+
+        session()->flash('message', 'Attempt was deleted.');
+
+        return redirect()->route('attempts.index');
+    }
 }

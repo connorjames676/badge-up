@@ -4,7 +4,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AttemptController;
 use App\Http\Controllers\ChallengeController;
-use App\Models\Challenge;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -14,7 +14,8 @@ Route::get('/', function () {
 Route::redirect('/', '/dashboard');
 
 Route::get('/dashboard', function () {
-    return redirect()->route('challenges.index');
+    //return redirect()->route('challenges.index');
+    return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -30,6 +31,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/attempts', [AttemptController::class, 'index'])->name('attempts.index');
     Route::get('/attempts/create', [AttemptController::class, 'create'])->name('attempts.create');
     Route::post('/attempts', [AttemptController::class, 'store'])->name('attempts.store');
+    Route::get('/attempts/{id}', [AttemptController::class, 'show'])->name('attempts.show');
+    Route::get('/attempts/{id}/edit', [AttemptController::class, 'edit'])->name('attempts.edit');
+    Route::patch('/attempts/{id}', [AttemptController::class, 'update'])->name('attempts.update');
+    Route::delete('/attempts/{id}', [AttemptController::class, 'destroy'])->name('attempts.destroy');
+
+    Route::get('/attempts/{id}/comments/create', [CommentController::class, 'create'])->name('comments.create');
+    Route::post('/attempts/{attempt}/comment', [CommentController::class, 'store'])->name('comments.store');
+    Route::get('/attempts/{attempt}/comment/{comment}/edit', [CommentController::class, 'edit'])->name('comments.edit');
+    Route::patch('attempts/{attempt}/comment/{comment}', [CommentController::class, 'update'])->name('comments.update');
+    Route::delete('/attempts/{attempt}/comment/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 
     Route::get('/challenges', [ChallengeController::class, 'index'])->name('challenges.index');
     Route::get('/challenges/create', [ChallengeController::class, 'create'])->name('challenges.create');

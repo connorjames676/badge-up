@@ -20,10 +20,10 @@ class Challenge extends Model
             'challenge_id', 'participant_id');
     }
 
-    public function attempts()
+    /*public function attempts()
     {
         return $this->hasMany(Attempt::class);
-    }
+    }*/
 
     public function badges()
     {

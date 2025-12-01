@@ -9,15 +9,15 @@ class Attempt extends Model
 {
     use HasFactory;
 
-    public function myUser()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function challenge()
+    /*public function challenge()
     {
         return $this->belongsTo(Challenge::class);
-    }
+    }*/
 
     public function comments()
     {
