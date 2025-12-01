@@ -25,6 +25,8 @@ class CommentController extends Controller
         $comment->user_id = auth()->user()->id;
         $comment->attempt_id = $attempt->id;
         $comment->save();
+
+        $attempt->increment('num_comments');
         
         session()->flash('message', 'Comment was created.');
         
@@ -53,6 +55,8 @@ class CommentController extends Controller
     public function destroy(Attempt $attempt, Comment $comment)
     {
         $comment->delete();
+
+        $attempt->decrement('num_comments');
 
         session()->flash('message', 'Comment was deleted.');
 

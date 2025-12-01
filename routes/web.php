@@ -4,6 +4,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AttemptController;
 use App\Http\Controllers\ChallengeController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/attempts/{id}/edit', [AttemptController::class, 'edit'])->name('attempts.edit');
     Route::patch('/attempts/{id}', [AttemptController::class, 'update'])->name('attempts.update');
     Route::delete('/attempts/{id}', [AttemptController::class, 'destroy'])->name('attempts.destroy');
+
+    Route::post('attempts/{id}/like', [LikeController::class, 'store'])->name('likes.store');
+    Route::delete('attempts/{id}/unlike', [LikeController::class, 'destroy'])->name('likes.destroy');
 
     Route::get('/attempts/{id}/comments/create', [CommentController::class, 'create'])->name('comments.create');
     Route::post('/attempts/{attempt}/comment', [CommentController::class, 'store'])->name('comments.store');

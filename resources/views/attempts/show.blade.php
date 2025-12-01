@@ -35,7 +35,19 @@
 
                 <div class="mt-4 flex w-full items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
                     <div>
-                        <a href="#" class="hover:text-indigo-600">Like</a>
+                        @php $liked = $attempt->likes->contains('user_id', auth()->user()->id); @endphp
+                        @if ($liked)
+                            <form method="POST" action="{{ route('likes.destroy', $attempt->id) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-red-600">Liked</button>
+                        </form>
+                        @else
+                            <form method="POST" action="{{ route('likes.store', $attempt->id) }}">
+                            @csrf
+                            <button type="submit">Like</button>
+                            </form>
+                        @endif
                         <a href="{{ route('comments.create', $attempt->id) }}" class="hover:text-indigo-600">Comment</a>
                     </div>
                     <div>

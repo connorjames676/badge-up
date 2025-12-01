@@ -9,6 +9,12 @@ class Like extends Model
 {
     use HasFactory;
 
+    // To allow firstOrCreate to create a Like
+    protected $fillable = [
+        'user_id',
+        'attempt_id',
+    ];
+
     public function myUser()
     {
         return $this->belongsTo(User::class);
