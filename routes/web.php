@@ -14,7 +14,7 @@ Route::get('/', function () {
 Route::redirect('/', '/dashboard');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return redirect()->route('challenges.index');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
