@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
             $table->string('bio');
-            $table->integer('number_of_badges');
+            $table->integer('number_of_badges')->nullable();
             $table->timestamps();
             $table->bigInteger('user_id')->unsigned();
 

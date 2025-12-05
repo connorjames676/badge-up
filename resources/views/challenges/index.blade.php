@@ -56,14 +56,14 @@
                             </div>
 
                             {{-- Small footer: coach / attempts count (optional) --}}
-                            {{--<div class="mt-3 flex items-center justify-between text-[11px] text-gray-500">
+                            <div class="mt-3 flex items-center justify-between text-[11px] text-gray-500">
                                 <span>
                                     Coach: {{ $challenge->coach->name ?? 'Unknown' }}
                                 </span>
-                                <span>
+                                {{--<span>
                                     {{ $challenge->attempts_count ?? $challenge->attempts->count() }} attempts
-                                </span>
-                            </div>--}}
+                                </span>--}}
+                            </div>
 
                             <!-- Add form to this so that a new route can be accessed! -->
                             <button
