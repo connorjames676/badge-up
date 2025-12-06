@@ -35,12 +35,15 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile/bio/{id}', [ProfileController::class, 'bioUpdate'])->name('bio.update');
 
     Route::get('/attempts', [AttemptController::class, 'index'])->name('attempts.index');
-    Route::get('/attempts/create', [AttemptController::class, 'create'])->name('attempts.create');
-    Route::post('/attempts', [AttemptController::class, 'store'])->name('attempts.store');
+    //Route::get('/attempts/create', [AttemptController::class, 'create'])->name('attempts.create');
+    Route::get('/challenges/{id}/attempts/create', [AttemptController::class, 'create'])->name('attempts.create');
+    Route::post('/challenges/{id}/attempts', [AttemptController::class, 'store'])->name('attempts.store');
     Route::get('/attempts/{id}', [AttemptController::class, 'show'])->name('attempts.show');
     Route::get('/attempts/{id}/edit', [AttemptController::class, 'edit'])->name('attempts.edit');
     Route::patch('/attempts/{id}', [AttemptController::class, 'update'])->name('attempts.update');
     Route::delete('/attempts/{id}', [AttemptController::class, 'destroy'])->name('attempts.destroy');
+
+    //Route::get('/challenge/{id}/attempts', [AttemptController::class, 'getAttempts'])->name('challenge.attempts');
 
     Route::post('attempts/{id}/like', [LikeController::class, 'store'])->name('likes.store');
     Route::delete('attempts/{id}/unlike', [LikeController::class, 'destroy'])->name('likes.destroy');
@@ -55,6 +58,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/challenges/create', [ChallengeController::class, 'create'])->name('challenges.create');
     Route::post('/challenges', [ChallengeController::class, 'store'])->name('challenges.store');
     Route::get('/challenges/{id}', [ChallengeController::class, 'show'])->name('challenges.show');
+    Route::patch('/challenges/{id}/join', [ChallengeController::class, 'join'])->name('challenge.join');
+    Route::patch('/challenges/{id}/leave', [ChallengeController::class, 'leave'])->name('challenge.leave');
 });
 
 

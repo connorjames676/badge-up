@@ -6,9 +6,9 @@
     </x-slot>
 
     <div class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-        <x-primary-button class="ms-3">
-            <a href="{{ route('attempts.create') }}">Upload your attempt!</a>
-        </x-primary-button>
+        {{--<x-primary-button class="ms-3">
+            <a href="{{ route('attempts.create', 1) }}">Upload your attempt!</a>
+        </x-primary-button>--}}
 
         @forelse ($attempts as $attempt)
             <article class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attempt;
 use App\Models\Challenge;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class ChallengeController extends Controller
 {
@@ -22,7 +24,7 @@ class ChallengeController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required|max:255',
-		    'description' => 'required|max:255',
+		    'description' => 'max:255',
 		    'start_date' => 'required|date|after:now',
 		    'end_date' => 'required|date|after:start_date',
 		]);
@@ -45,6 +47,31 @@ class ChallengeController extends Controller
     public function show($id)
     {
         $challenge = Challenge::findOrFail($id);
-        return view('challenges.show', ['challenge' => $challenge]);
+        $hasJoined = auth()->user()->joinChallenges()->where('challenge_id', $challenge->id)->exists();
+        $attempts = Attempt::all()->where('challenge_id', $challenge->id);
+
+        return view('challenges.show', ['challenge' => $challenge, 'hasJoined' => $hasJoined, 'attempts' => $attempts]);
+    }
+
+    public function join($id)
+    {
+        $challenge = Challenge::findOrFail($id);
+        $user = User::findOrFail(auth()->user()->id);
+        $user->joinChallenges()->syncWithoutDetaching([$challenge->id]);
+
+        $hasJoined = auth()->user()->joinChallenges()->where('challenge_id', $challenge->id)->exists();
+
+        return redirect()->route('challenges.show', [$challenge, $hasJoined]);
+    }
+
+    public function leave($id)
+    {
+        $challenge = Challenge::findOrFail($id);
+        $user = User::findOrFail(auth()->user()->id);
+        $user->joinChallenges()->wherePivot('challenge_id', $challenge->id)->detach();
+
+        $hasJoined = auth()->user()->joinChallenges()->where('challenge_id', $challenge->id)->exists();
+
+        return redirect()->route('challenges.show', [$challenge, $hasJoined]);
     }
 }

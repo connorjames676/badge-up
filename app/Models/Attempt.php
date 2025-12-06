@@ -14,10 +14,10 @@ class Attempt extends Model
         return $this->belongsTo(User::class);
     }
 
-    /*public function challenge()
+    public function challenge()
     {
         return $this->belongsTo(Challenge::class);
-    }*/
+    }
 
     public function comments()
     {

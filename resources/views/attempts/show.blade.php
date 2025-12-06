@@ -20,6 +20,8 @@
                         <p class="text-sm text-gray-500 dark:text-gray-400">
                             by {{ $attempt->user->name ?? 'Unknown' }}
                         </p>
+
+                        <p>{{ $attempt->challenge_id }}</p>
                     </div>
                 <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700 dark:bg-gray-700 dark:text-gray-200">
                         {{ $attempt->created_at->diffForHumans() }}

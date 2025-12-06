@@ -19,15 +19,15 @@ return new class extends Migration
             $table->boolean('approved')->default(false); 
             $table->bigInteger('user_id')->unsigned();
             // NEED TO UNCOMMENT THIS! ATTEMPTS ARE JUST POSTS RIGHT NOW!!!
-            //$table->bigInteger('challenge_id')->default(0);
+            $table->bigInteger('challenge_id')->unsigned();
             $table->bigInteger('num_likes')->default(0);
             $table->bigInteger('num_comments')->default(0);
 
             $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('cascade')->onUpdate('cascade');
 
-            /*$table->foreign('challenge_id')->references('id')->on('challenges')
-                ->onDelete('cascade')->onUpdate('cascade');*/
+            $table->foreign('challenge_id')->references('id')->on('challenges')
+                ->onDelete('cascade')->onUpdate('cascade');
 
             $table->timestamps();
         });

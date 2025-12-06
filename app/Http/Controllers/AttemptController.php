@@ -13,29 +13,28 @@ class AttemptController extends Controller
         return view('attempts.index', ['attempts' => $attempts]);
     }
 
-    public function create()
+    public function create($id)
     {
-        return view('attempts.create');
+        return view('attempts.create', ['id' => $id]);
     }
 
-    public function store(Request $request)
+    public function store($id, Request $request)
     {
         $validatedData = $request->validate([
             'title' => 'required|max:255',
-		    'description' => 'required|max:255',
+		    'description' => 'max:255',
 		]);
-		
-		//return "Passed Validation";
 
         $attempt = new Attempt();
         $attempt->title = $validatedData['title'];
         $attempt->description = $validatedData['description'];
         $attempt->user_id = auth()->user()->id;
+        $attempt->challenge_id = $id;
         $attempt->save();
         
         session()->flash('message', 'Attempt was created.');
         
-        return redirect()->route('attempts.index');
+        return redirect()->route('challenges.show', $id);
     }
 
     public function show($id)
@@ -47,7 +46,8 @@ class AttemptController extends Controller
     public function edit($id)
     {
         $attempt = Attempt::findOrFail($id);
-        return view('attempts.edit', ['attempt' => $attempt]);
+        $challenge_id = $attempt->challenge_id;
+        return view('attempts.edit', ['attempt' => $attempt, 'challenge_id' => $challenge_id]);
     }
 
     public function update($id, Request $request)
@@ -65,7 +65,7 @@ class AttemptController extends Controller
         
         session()->flash('message', 'Attempt was updated.');
         
-        return redirect()->route('attempts.show', $attempt->id);
+        return redirect()->route('challenges.show', $attempt->challenge_id);
     }
 
     public function destroy($id)

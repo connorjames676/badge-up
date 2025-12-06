@@ -1,18 +1,33 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            Edit Attempt
+            Edit an Attempt
         </h2>
     </x-slot>
 
-    <div class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-        <form method="POST" action="{{ route('attempts.update', $attempt->id) }}">
-            @csrf
-            @method('PATCH')
-            <p>Title: <input type="text" name="title" value="{{ old('title') }}"></p>
-            <p>Description: <input type="text" name="description" value="{{ old('description') }}"></p>
-            <input type="submit" value="Submit">
-            <a href="{{ route('attempts.show', $attempt) }}">Cancel</a>
-        </form>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                <form method="POST" action="{{ route('attempts.update', $attempt->id) }}" class="mt-6 space-y-6">
+                    @csrf
+                    @method('PATCH')
+                    <div>
+                        <x-input-label value="Title" />
+                        <x-text-input type="text" name="title" class="mt-1 block w-full" style="margin-bottom: 5px"  :value="old( 'title')" />
+
+                        <x-input-label value="Description" />
+                        <x-text-input type="text" name="description" class="mt-1 block w-full" style="margin-bottom: 5px" :value="old( 'description')" />
+                    </div>
+
+                    <div class="flex items-center gap-4">
+                        <x-primary-button>{{ __('Save') }}</x-primary-button>
+                    </div>
+
+                    <div class="flex items-center gap-4 text-white">
+                        <a href="{{ route('challenges.show', $challenge_id) }}">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </x-app-layout>
