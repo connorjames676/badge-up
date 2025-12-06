@@ -13,7 +13,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::redirect('/', '/dashboard');
+//Route::redirect('/', '/dashboard');
 
 Route::get('/dashboard', function () {
     //return redirect()->route('challenges.index');

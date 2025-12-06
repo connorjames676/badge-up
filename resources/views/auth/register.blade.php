@@ -16,6 +16,26 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
+        <!-- Age (I ADDED THIS) -->
+        <div class="mt-4">
+            <x-input-label for="age" :value="__('Age')" />
+            <x-text-input id="age" class="block mt-1 w-full" type="integer" name="age" :value="old('age')" required autocomplete="age" />
+            <x-input-error :messages="$errors->get('age')" class="mt-2" />
+        </div>
+
+        <!-- Role (I ADDED THIS) -->
+        <div>
+            <x-input-label for="role" :value="__('Role')" />
+            <select name="role">
+                <option>
+                    Coach
+                </option>
+                <option>
+                    Participant
+                </option>
+            </select>
+        </div>
+
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
