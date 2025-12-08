@@ -3,17 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Profile;
+use App\Models\User;
 use DB;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    public function show()
+    public function show($id)
     {
-        //$user = auth()->user();
+        $user = User::findOrFail($id);
         //$attempts = DB::table('attempts')->where('user_id', $user->id);
 
-        return view('profile.show');
+        return view('profile.show', ['user' => $user]);
     }
 
     public function bioEdit()
@@ -34,6 +35,6 @@ class ProfileController extends Controller
         
         session()->flash('message', 'Bio was updated.');
         
-        return redirect()->route('profile.show');
+        return redirect()->route('profile.show', auth()->user());
     }
 }

@@ -71,6 +71,15 @@ class AttemptController extends Controller
     public function destroy($id)
     {
         $attempt = Attempt::findOrFail($id);
+
+        foreach($attempt->comments as $comment) {
+            $comment->delete();
+        }
+
+        foreach($attempt->likes as $like) {
+            $like->delete();
+        }
+
         $attempt->delete();
 
         session()->flash('message', 'Attempt was deleted.');

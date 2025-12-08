@@ -53,6 +53,49 @@ class ChallengeController extends Controller
         return view('challenges.show', ['challenge' => $challenge, 'hasJoined' => $hasJoined, 'attempts' => $attempts]);
     }
 
+    public function edit($id)
+    {
+        $challenge = Challenge::findOrFail($id);
+        return view('challenges.edit', ['challenge' => $challenge]);
+    }
+
+    public function update($id, Request $request)
+    {
+        $validatedData = $request->validate([
+            'title' => 'max:255',
+		    'description' => 'max:255',
+		    'start_date' => 'date|after:$challenge->created_at',
+		    'end_date' => 'date|after:start_date',
+		]);
+
+
+        $challenge = Challenge::findOrFail($id);
+        $challenge->title = $validatedData['title'];
+        $challenge->description = $validatedData['description'];
+        $challenge->start_date = $validatedData['start_date'];
+        $challenge->end_date = $validatedData['end_date'];
+        $challenge->save();
+        
+        session()->flash('message', 'Challenge was updated.');
+        
+        return redirect()->route('challenges.show', $challenge->id);
+    }
+
+    public function destroy($id)
+    {
+        $challenge = Challenge::findOrFail($id);
+
+        foreach($challenge->attempts as $attempt) {
+            $attempt->delete();
+        }
+
+        $challenge->delete();
+
+        session()->flash('message', 'Challenge was deleted.');
+
+        return redirect()->route('challenges.index');
+    }
+
     public function join($id)
     {
         $challenge = Challenge::findOrFail($id);

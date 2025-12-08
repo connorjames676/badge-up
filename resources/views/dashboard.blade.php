@@ -36,7 +36,7 @@
                                     </p>
 
                                     <p class="text-sm text-gray-500 dark:text-gray-400">
-                                        by <a href="">{{ $challenge->user->name ?? 'Unknown' }}</a>
+                                        by <a href="{{ route('profile.show', $challenge->coach_id) }}">{{ $challenge->user->name ?? 'Unknown' }}</a>
                                     </p>
                                 </div>
 
@@ -76,7 +76,7 @@
                                     </p>
 
                                     <p class="text-sm text-gray-500 dark:text-gray-400">
-                                        by <a href="">{{ $challenge->user->name ?? 'Unknown' }}</a>
+                                        by <a href="{{ route('profile.show', $challenge->coach_id) }}">{{ $challenge->user->name ?? 'Unknown' }}</a>
                                     </p>
                                 </div>
 
@@ -116,7 +116,7 @@
                                     </p>
 
                                     <p class="text-sm text-gray-500 dark:text-gray-400">
-                                        by <a href="">{{ $challenge->user->name ?? 'Unknown' }}</a>
+                                        by <a href="{{ route('profile.show', $challenge->coach_id) }}">{{ $challenge->user->name ?? 'Unknown' }}</a>
                                     </p>
                                 </div>
 

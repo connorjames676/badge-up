@@ -38,6 +38,14 @@
                     <div>
                         <p class="mt-1 text-sm text-gray 900 dark:text-gray-100">Start Date: {{ $challenge->start_date }}</p>
                         <p class="mt-1 text-sm text-gray 900 dark:text-gray-100">End Date: {{ $challenge->end_date }}</p>
+                        <div class="mt-4 flex w-full items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
+                            <a href="{{ route('challenges.edit', $challenge->id) }}">Edit</a>
+                            <form method="POST" action="{{ route('challenges.destroy', $challenge->id) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit">Delete</button>
+                            </form>
+                        </div>
                     </div>
 
                     @if ($hasJoined == False)

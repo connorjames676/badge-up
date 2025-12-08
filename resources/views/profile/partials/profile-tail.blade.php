@@ -4,7 +4,7 @@
     </header>
 
     <div class="mt-3">
-        @foreach (auth()->user()->attempts as $attempt)
+        @forelse ($user->attempts as $attempt)
             <div class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 <article class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
                     <div class="flex items-start justify-between gap-3">
@@ -62,7 +62,9 @@
                     </div>
                 </article>
             </div>
-        @endforeach
+        @empty
+            No attempts yet
+        @endforelse
     </div>
 
     <header>
@@ -70,7 +72,7 @@
     </header>
 
     <div class="mt-3">
-        @forelse (auth()->user()->comments as $comment)
+        @forelse ($user->comments as $comment)
             <div class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 <article class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
                     <div class="flex items-start justify-between gap-3">

@@ -30,9 +30,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/users', [UserController::class, 'store'])->name('users.store');
     Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
 
-    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('profile/bio', [ProfileController::class, 'bioEdit'])->name('bio.edit');
     Route::patch('/profile/bio/{id}', [ProfileController::class, 'bioUpdate'])->name('bio.update');
+    Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show');
+    //Route::get('/profile/{id}', [ProfileController::class, 'showOther'])->name('profile.show-other');
 
     Route::get('/attempts', [AttemptController::class, 'index'])->name('attempts.index');
     //Route::get('/attempts/create', [AttemptController::class, 'create'])->name('attempts.create');
@@ -58,6 +59,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/challenges/create', [ChallengeController::class, 'create'])->name('challenges.create');
     Route::post('/challenges', [ChallengeController::class, 'store'])->name('challenges.store');
     Route::get('/challenges/{id}', [ChallengeController::class, 'show'])->name('challenges.show');
+    Route::get('/challenges/{id}/edit', [ChallengeController::class, 'edit'])->name('challenges.edit');
+    Route::patch('/challenges/{id}', [ChallengeController::class, 'update'])->name('challenges.update');
+    Route::delete('/challenges/{id}', [ChallengeController::class, 'destroy'])->name('challenges.destroy');
+
     Route::patch('/challenges/{id}/join', [ChallengeController::class, 'join'])->name('challenge.join');
     Route::patch('/challenges/{id}/leave', [ChallengeController::class, 'leave'])->name('challenge.leave');
 });

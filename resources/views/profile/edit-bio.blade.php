@@ -16,7 +16,7 @@
                         </div>
 
                         <div class="flex items-center gap-4 text-white">
-                            <a href="{{ route('profile.show') }}">Cancel</a>
+                            <a href="{{ route('profile.show', auth()->user()) }}">Cancel</a>
                         </div>
                     </form>
                 </div>
