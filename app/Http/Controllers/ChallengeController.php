@@ -62,10 +62,10 @@ class ChallengeController extends Controller
     public function update($id, Request $request)
     {
         $validatedData = $request->validate([
-            'title' => 'max:255',
+            'title' => 'required|max:255',
 		    'description' => 'max:255',
-		    'start_date' => 'date|after:$challenge->created_at',
-		    'end_date' => 'date|after:start_date',
+		    'start_date' => 'required|date|after:$challenge->created_at',
+		    'end_date' => 'required|date|after:start_date',
 		]);
 
 

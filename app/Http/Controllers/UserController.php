@@ -48,4 +48,67 @@ class UserController extends Controller
         
         return redirect()->route('users.index');
     }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+
+        // Delete profile
+        $user->profile()->delete();
+
+        // Remove user from challenges they have joined
+        foreach($user->joinChallenges as $challengeJoined) {
+            $user->joinChallenges()->wherePivot('challenge_id', $challengeJoined->id)->detach();
+        }
+
+        // Delete the user's challenges and everything attached to the challenges
+        foreach($user->challenges() as $challenge) {
+            foreach($challenge->participants() as $participant) {
+                $participant->joinChallenges()->wherePivot('challenge_id', $challenge->id)->detach;
+            }
+            foreach($challenge->attempts as $attempt) {
+                foreach($attempt->comments as $comment) {
+                    $comment->delete();
+                }
+                foreach($attempt->likes as $like) {
+                    $like->delete();
+                }
+                $attempt->delete();
+            }
+            foreach($challenge->badges as $badge) {
+                $badge->delete();
+            }
+        }
+
+        // Delete the user's attempts along with their likes and comments
+        foreach($user->attempts as $attempt) {
+            foreach($attempt->comments as $comment) {
+                    $comment->delete();
+                }
+                foreach($attempt->likes as $like) {
+                    $like->delete();
+                }
+                $attempt->delete();
+        }
+
+        // Delete the user's comments
+        foreach($user->comments as $comment) {
+            $comment->delete();
+        }
+
+        // Delete the user's likes
+        foreach($user->likes as $like) {
+            $like->delete();
+        }
+
+        // Delete the user's badges
+        foreach($user->badges as $badge) {
+            $badge->delete();
+        }
+
+        // Delete user
+        $user->delete();
+
+        return redirect()->route('dashboard');
+    }
 }

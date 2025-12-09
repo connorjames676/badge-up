@@ -1,67 +1,42 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ $attempt->title }}
-        </h2>
-    </x-slot>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                <div style="margin-bottom: 20px">
+                    <div class="flex justify-between">
+                        <h2 class="text-xl font-medium text-gray-900 dark:text-gray-100">{{ $attempt->title }}</h2>
 
-    <div class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-        <article class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-                <div class="flex items-start justify-between gap-3">
-                    <div>
-                        {{--<h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                            {{ $attempt->title }}
-                        </h4>--}}
-                        @if(!empty($attempt->description))
-                            <p class="mt-3 text-sm text-gray-700 dark:text-gray-200 line-clamp-3">
-                                {{ $attempt->description }}
-                            </p>
-                        @endif
-                        <p class="text-sm text-gray-500 dark:text-gray-400">
-                            by {{ $attempt->user->name ?? 'Unknown' }}
-                        </p>
-
-                        <p>{{ $attempt->challenge_id }}</p>
+                        <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700 dark:bg-gray-700 dark:text-gray-200">
+                            {{ $attempt->created_at->diffForHumans() }}
+                        </span>
                     </div>
-                <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700 dark:bg-gray-700 dark:text-gray-200">
-                        {{ $attempt->created_at->diffForHumans() }}
-                </span>
+                    
+                    @if(!empty($attempt->description))
+                        <p class="mt-1 text-m text-gray-600 dark:text-gray-300">
+                            {{ $attempt->description }}
+                        </p>
+                    @endif
+                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                        by <a href="{{ route('profile.show', $attempt->user_id) }}">{{ $attempt->user->name ?? 'Unknown' }}</a>
+                    </p>
                 </div>
 
-                {{-- <div class="mt-4 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400"></div>
-                <div class="flex gap-3">
-                    <a href="#" class="hover:text-indigo-600">Like</a>
-                    <a href="#" class="hover:text-indigo-600">Comment</a>
-                    <a href="{{ route('attempts.edit', $attempt->id) }}" class="ml-auto hover:text-indigo-600">Edit</a>
-                </div>--}}
-
-                <div class="mt-4 flex w-full items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
-                    <div>
-                        @php $liked = $attempt->likes->contains('user_id', auth()->user()->id); @endphp
-                        @if ($liked)
-                            <form method="POST" action="{{ route('likes.destroy', $attempt->id) }}">
+                <div class="mt-4 flex w-full items-center gap-3 text-m text-gray-500 dark:text-gray-400">
+                    @php $liked = $attempt->likes->contains('user_id', auth()->user()->id); @endphp
+                    @if ($liked)
+                        <form method="POST" action="{{ route('likes.destroy', $attempt->id) }}">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="text-red-600">Liked</button>
                         </form>
-                        @else
-                            <form method="POST" action="{{ route('likes.store', $attempt->id) }}">
+                    @else
+                        <form method="POST" action="{{ route('likes.store', $attempt->id) }}">
                             @csrf
                             <button type="submit">Like</button>
-                            </form>
-                        @endif
-                        <a href="{{ route('comments.create', $attempt->id) }}" class="hover:text-indigo-600">Comment</a>
-                    </div>
-                    <div>
-                        <a href="{{ route('attempts.edit', $attempt->id) }}">Edit</a>
-                    </div>
-                    <div>
-                        <form method="POST" action="{{ route('attempts.destroy', $attempt->id) }}">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit">Delete</button>
                         </form>
-                    </div>
+                    @endif
+                    <a href="{{ route('comments.create', $attempt->id) }}" class="hover:text-indigo-600">Comment</a>
+
                     <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700 dark:bg-gray-700 dark:text-gray-200">
                         {{ $attempt->num_likes }} likes
                     </span>
@@ -69,49 +44,21 @@
                         {{ $attempt->num_comments }} comments
                     </span>
                 </div>
-            </article>
 
-
-
-        {{-- @forelse ($attempts as $attempt)
-            <article class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-                <div class="flex items-start justify-between gap-3">
-                    <div>
-                        <h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                            {{ $attempt->title }}
-                        </h4>
-                        @if(!empty($attempt->description))
-                            <p class="mt-3 text-sm text-gray-700 dark:text-gray-200 line-clamp-3">
-                                {{ $attempt->description }}
-                            </p>
-                        @endif
-                        <p class="text-sm text-gray-500 dark:text-gray-400">
-                            by {{ $attempt->user->name ?? 'Unknown' }}
-                        </p>
-                    </div>
-                <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700 dark:bg-gray-700 dark:text-gray-200">
-                        {{ $attempt->created_at->diffForHumans() }}
-                    </span>
+                <div class="font-semibold mt-4 flex w-full items-center gap-3 text-m text-gray-500 dark:text-gray-400">
+                    @if (auth()->user()->id == $attempt->user_id)
+                        <div class="mt-4 flex w-full items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
+                            <a href="{{ route('attempts.edit', $attempt->id) }}">Edit</a>
+                            <form method="POST" action="{{ route('attempts.destroy', $attempt->id) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit">Delete</button>
+                            </form>
+                        </div>
+                    @endif
                 </div>
-
-                <div class="mt-4 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400"></div>
-                <div class="flex gap-3">
-                    <a href="#" class="hover:text-indigo-600">Like</a>
-                    <a href="#" class="hover:text-indigo-600">Comment</a>
-                </div>
-            </article>
-        @empty
-            <p class="text-gray-600 dark:text-gray-300">No attempts yet. Be the first to post one!</p>
-        @endforelse--}}
-    </div>
-
-    <div class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-        {{--@forelse ($attempt->comments as $comment)
-            {{ $comment->content }}
-        @empty
-            <p class="text-gray-600 dark:text-gray-300">No comments yet. Be the first to comment by clicking 'comment' above!</p>    
-        @endforelse--}}
-
-        @include('comments.index', $attempt)
+            </div>
+            @include('comments.index', $attempt)
+        </div>
     </div>
 </x-app-layout>

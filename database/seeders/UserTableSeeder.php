@@ -20,6 +20,15 @@ class UserTableSeeder extends Seeder
         $me->role = "coach";
         $me->save();
 
+        // Initialise an admin, admin's cannot be created for security reasons
+        $admin = new User;
+        $admin->name = "Julian Hough";
+        $admin->email = "julian@swansea.ac.uk";
+        $admin->password = "password";
+        $admin->age = 40;
+        $admin->role = "admin";
+        $admin->save();
+
         User::factory()->count(50)->create();
     }
 }

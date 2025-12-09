@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users', [UserController::class, 'store'])->name('users.store');
     Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
+    Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 
     Route::get('profile/bio', [ProfileController::class, 'bioEdit'])->name('bio.edit');
     Route::patch('/profile/bio/{id}', [ProfileController::class, 'bioUpdate'])->name('bio.update');

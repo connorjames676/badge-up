@@ -1,11 +1,15 @@
 <x-app-layout>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <a href="{{ route('challenges.create') }}" class="text-gray-200">
-                    Click here to create your own challenge!
-                </a>
-            </div>
+
+            <!-- Only allows coaches to create challenges -->
+            @if (auth()->user()->role == 'coach')
+                <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                    <a href="{{ route('challenges.create') }}" class="text-gray-200">
+                        Click here to create your own challenge!
+                    </a>
+                </div>
+            @endif
 
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 text-gray-200 shadow sm:rounded-lg">
                 <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight " style="margin-bottom: 20px">Challenges</h2>
@@ -23,7 +27,7 @@
                                 </p>
 
                                 <p class="text-sm text-gray-500 dark:text-gray-400">
-                                    by <a href="">{{ $challenge->user->name ?? 'Unknown' }}</a>
+                                    by <a href="{{ route('profile.show', $challenge->coach_id) }}">{{ $challenge->user->name ?? 'Unknown' }}</a>
                                 </p>
                             </div>
 

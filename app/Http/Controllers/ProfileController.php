@@ -12,9 +12,9 @@ class ProfileController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        //$attempts = DB::table('attempts')->where('user_id', $user->id);
+        $isAdmin = $user->role == "admin";
 
-        return view('profile.show', ['user' => $user]);
+        return view('profile.show', ['user' => $user, 'isAdmin' => $isAdmin]);
     }
 
     public function bioEdit()

@@ -13,11 +13,13 @@
                     @method('PATCH')
                     <div>
                         <x-input-label value="Title" />
-                        <x-text-input type="text" name="title" class="mt-1 block w-full" style="margin-bottom: 5px"  :value="old( 'title')" />
+                        <x-text-input type="text" name="title" class="mt-1 block w-full" style="margin-bottom: 5px"  :value="old( 'title', $attempt->title)" />
 
                         <x-input-label value="Description" />
-                        <x-text-input type="text" name="description" class="mt-1 block w-full" style="margin-bottom: 5px" :value="old( 'description')" />
+                        <x-text-input type="text" name="description" class="mt-1 block w-full" style="margin-bottom: 5px" :value="old( 'description', $attempt->description)" />
                     </div>
+
+                    @include('layouts.error')
 
                     <div class="flex items-center gap-4">
                         <x-primary-button>{{ __('Save') }}</x-primary-button>

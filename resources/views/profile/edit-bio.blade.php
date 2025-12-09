@@ -11,6 +11,8 @@
                             <x-text-input type="text" name="bio" class="mt-1 block w-full" :value="old( 'bio', auth()->user()->profile->bio)" />
                         </div>
 
+                        @include('layouts.error')
+
                         <div class="flex items-center gap-4">
                             <x-primary-button>{{ __('Save') }}</x-primary-button>
                         </div>

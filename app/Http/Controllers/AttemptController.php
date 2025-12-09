@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attempt;
+use App\Models\Challenge;
 use Illuminate\Http\Request;
 
 class AttemptController extends Controller
@@ -22,7 +23,7 @@ class AttemptController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required|max:255',
-		    'description' => 'max:255',
+		    'description' => 'required|max:255',
 		]);
 
         $attempt = new Attempt();
@@ -71,6 +72,7 @@ class AttemptController extends Controller
     public function destroy($id)
     {
         $attempt = Attempt::findOrFail($id);
+        $challlenge = Challenge::findOrFail($attempt->challenge_id);
 
         foreach($attempt->comments as $comment) {
             $comment->delete();
@@ -84,6 +86,6 @@ class AttemptController extends Controller
 
         session()->flash('message', 'Attempt was deleted.');
 
-        return redirect()->route('attempts.index');
+        return redirect()->route('challenges.show', $challlenge->id);
     }
 }

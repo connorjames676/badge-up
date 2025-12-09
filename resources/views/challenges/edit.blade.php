@@ -25,6 +25,8 @@
                         <x-text-input type="date" name="end_date" class="mt-1 block w-full" style="margin-bottom: 5px" :value="old( 'end_date', $challenge->end_date)" />
                     </div>
 
+                    @include('layouts.error')
+
                     <div class="flex items-center gap-4">
                         <x-primary-button>{{ __('Save') }}</x-primary-button>
                     </div>
