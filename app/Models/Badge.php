@@ -9,7 +9,7 @@ class Badge extends Model
 {
     use HasFactory;
 
-    public function myUser()
+    public function user()
     {
         return $this->belongsTo(User::class, 'participant_id');
     }

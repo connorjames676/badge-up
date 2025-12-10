@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Badge;
 use App\Models\Profile;
 use App\Models\User;
 use DB;
@@ -14,13 +15,16 @@ class ProfileController extends Controller
         $user = User::findOrFail($id);
         $isAdmin = $user->role == "admin";
 
-        $attempts = $user->attempts()->paginate(3);
-        $comments = $user->comments()->paginate(3);
+        //$items = $user->attempts->merge($user->comments)->sortByDesc('created_at');
+
+        $attempts = $user->attempts()->orderByDesc('created_at')->paginate(3);
+        $comments = $user->comments()->orderByDesc('created_at')->paginate(3);
 
         return view('profile.show', [
             'user' => $user,
             'isAdmin' => $isAdmin,
             'attempts' => $attempts,
+            //'items' => $items,
             'comments' => $comments
         ]);
     }
@@ -44,5 +48,12 @@ class ProfileController extends Controller
         session()->flash('message', 'Bio was updated.');
         
         return redirect()->route('profile.show', auth()->user());
+    }
+
+    public function badges(User $user)
+    {
+        $badges = Badge::where('participant_id', $user->id)->orderByDesc('created_at')->paginate(5);
+        
+        return view('badges.index', ['user' => $user, 'badges' => $badges]);
     }
 }

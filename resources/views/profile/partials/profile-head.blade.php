@@ -42,7 +42,7 @@
 
     <div class="mt-3">
         <p class="mt-1 text-m text-gray-600 dark:text-gray-400">
-            {{ $user->profile->number_of_badges }} badges
+            <a href="{{ route('badges.index', $user) }}">{{ $user->profile->number_of_badges }} badges</a>
         </p>
     </div>
 </section>

@@ -21,7 +21,7 @@ class ChallengeController extends Controller
             'challenges' => DB::table('challenges')->simplePaginate(5)
         ]);*/
 
-        $challenges = Challenge::paginate(5);
+        $challenges = Challenge::orderByDesc('start_date')->paginate(5);
         return view('challenges.index', ['challenges' => $challenges]);
     }
 

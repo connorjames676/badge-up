@@ -67,6 +67,7 @@ Route::middleware('auth')->group(function () {
     Route::get('profile/bio', [ProfileController::class, 'bioEdit'])->name('bio.edit');
     Route::patch('/profile/bio/{id}', [ProfileController::class, 'bioUpdate'])->name('bio.update');
     Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/{user}/badges', [ProfileController::class, 'badges'])->name('badges.index');
     //Route::get('/profile/{id}', [ProfileController::class, 'showOther'])->name('profile.show-other');
 
     Route::get('/attempts', [AttemptController::class, 'index'])->name('attempts.index');
@@ -77,6 +78,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/attempts/{id}/edit', [AttemptController::class, 'edit'])->name('attempts.edit');
     Route::patch('/attempts/{id}', [AttemptController::class, 'update'])->name('attempts.update');
     Route::delete('/attempts/{id}', [AttemptController::class, 'destroy'])->name('attempts.destroy');
+    Route::patch('/attempts{id}', [AttemptController::class, 'approve'])->name('attempts.approve');
 
     //Route::get('/challenge/{id}/attempts', [AttemptController::class, 'getAttempts'])->name('challenge.attempts');
 

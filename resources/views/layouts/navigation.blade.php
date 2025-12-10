@@ -16,9 +16,9 @@
                         {{ __('Challenges') }}
                     </x-nav-link>
                     <!-- Added to add a Users link to Breeze template -->
-                    <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
+                    {{--<x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
                         {{ __('Users') }}
-                    </x-nav-link>
+                    </x-nav-link>--}}
 
                     <!-- Added to add an Attempts link to Breeze template -->
                     <x-nav-link :href="route('attempts.index')" :active="request()->routeIs('attempts.index')">

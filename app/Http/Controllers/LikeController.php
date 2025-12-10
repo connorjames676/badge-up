@@ -6,6 +6,8 @@ use App\Models\Attempt;
 use Illuminate\Http\Request;
 use App\Models\Like;
 
+use App\Notifications\AttemptInteracted;
+
 class LikeController extends Controller
 {
     /*public function store($id, Request $request)
@@ -32,6 +34,10 @@ class LikeController extends Controller
         if ($like->wasRecentlyCreated) {
             $attempt->increment('num_likes');
         }
+
+        // Send the user a notification of the comment
+        $user = $like->user; 
+        $attempt->user->notify(new AttemptInteracted($user, $attempt, 'like', null));
 
         //session()->flash('message', 'Like was successfully created.');
 

@@ -32,7 +32,8 @@
                     </p>
                 </div>
             
-                <div class="mt-4 flex w-full items-center gap-3 text-m text-gray-500 dark:text-gray-400">
+                <div class="flex justify-between">
+                    <div class="mt-4 flex w-full items-center gap-3 text-m text-gray-500 dark:text-gray-400">
                     @php $liked = $attempt->likes->contains('user_id', auth()->user()->id); @endphp
                     @if (!$isAdmin)
                         @if ($liked)
@@ -56,6 +57,17 @@
                     {{--<span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700 dark:bg-gray-700 dark:text-gray-200">
                         {{ $attempt->num_comments }} comments
                     </span>--}}
+                    </div>
+
+                    @if (auth()->user()->id == $attempt->challenge->user->id AND !$hasBeenApproved)
+                        <form method="POST" action="{{ route('attempts.approve', $attempt->id) }}">
+                                @csrf
+                                @method('PATCH')
+                                <x-primary-button>Approve</x-primary-button>
+                        </form>
+
+                        {{--<a href="{{ route('attempts.approve', $attempt->id) }}"><x-primary-button>Approve</x-primary-button></a>--}}
+                    @endif
                 </div>
 
                 <div class="font-semibold mt-4 flex w-full items-center gap-3 text-m text-gray-500 dark:text-gray-400">

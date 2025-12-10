@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attempt;
+use App\Models\Badge;
 use App\Models\Challenge;
 use Illuminate\Http\Request;
 
@@ -10,7 +11,7 @@ class AttemptController extends Controller
 {
     public function index()
     {
-        $attempts = Attempt::all();
+        $attempts = Attempt::orderByDesc('created_at')->paginate(7);
         return view('attempts.index', ['attempts' => $attempts]);
     }
 
@@ -44,10 +45,13 @@ class AttemptController extends Controller
         $isAdmin = auth()->user()->role == 'admin';
         $comments = $attempt->comments()->paginate(3);
 
+        $hasBeenApproved = $attempt->approved;
+
         return view('attempts.show', [
             'attempt' => $attempt,
             'isAdmin' => $isAdmin,
-            'comments' => $comments
+            'comments' => $comments,
+            'hasBeenApproved' => $hasBeenApproved
         ]);
     }
 
@@ -61,8 +65,8 @@ class AttemptController extends Controller
     public function update($id, Request $request)
     {
         $validatedData = $request->validate([
-            'title' => 'sometimes|required|max:255',
-		    'description' => 'sometimes|required|max:255',
+            'title' => 'required|max:255',
+		    'description' => 'required|max:255',
 		]);
 
         $attempt = Attempt::findOrFail($id);
@@ -94,5 +98,25 @@ class AttemptController extends Controller
         session()->flash('message', 'Attempt was deleted.');
 
         return redirect()->route('challenges.show', $challlenge->id);
+    }
+
+    public function approve($id) {
+        $attempt = Attempt::findOrFail($id);
+
+        $attempt->approved = True;
+        $attempt->save();
+
+        $badge = new Badge();
+        $badge->title = $attempt->challenge->title;
+        $badge->description = $attempt->challenge->description;
+        $badge->participant_id = $attempt->user->id;
+        $badge->challenge_id = $attempt->challenge->id;
+        $badge->save();
+
+        $profile = $attempt->user->profile;
+        $profile->number_of_badges++;
+        $profile->save();
+
+        return redirect()->route('attempts.show', $attempt->id);
     }
 }

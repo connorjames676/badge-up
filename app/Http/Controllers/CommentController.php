@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attempt;
+use App\Notifications\AttemptInteracted;
 use Illuminate\Http\Request;
 use App\Models\Comment;
 
@@ -27,6 +28,10 @@ class CommentController extends Controller
         $comment->save();
 
         $attempt->increment('num_comments');
+
+       // Send the user a notification of the comment
+        $user = $comment->user; 
+        $attempt->user->notify(new AttemptInteracted($user, $attempt, 'like', null));
         
         session()->flash('message', 'Comment was created.');
         
