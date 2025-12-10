@@ -7,7 +7,10 @@ use App\Http\Controllers\AttemptController;
 use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentController;
+use App\Livewire\CreateComment;
 use Illuminate\Support\Facades\Route;
+
+use Illuminate\Support\Carbon;
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,9 +19,39 @@ Route::get('/', function () {
 //Route::redirect('/', '/dashboard');
 
 Route::get('/dashboard', function () {
+    $user = auth()->user();
+    $now = Carbon::now();
+
+    $joined = auth()->user()->joinChallenges;
+
+    $active = $user->joinChallenges()
+        ->whereDate('start_date', '<=', $now)
+        ->whereDate('end_date', '>=', $now)
+        ->with('user')
+        ->paginate(3);
+
+    $upcoming = $user->joinChallenges()
+        ->whereDate('start_date', '>', $now)
+        ->with('user')
+        ->paginate(3);
+
+    $past = $user->joinChallenges()
+        ->whereDate('end_date', '<', $now)
+        ->with('user')
+        ->paginate(3);
+
+    return view('dashboard', compact(
+        'joined',
+        'active',
+        'upcoming',
+        'past'
+    ));
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+/*Route::get('/dashboard', function () {
     //return redirect()->route('challenges.index');
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');*/
 
 Route::middleware('auth')->group(function () {
     Route::get('/account', [AccountController::class, 'edit'])->name('account.edit');
@@ -50,8 +83,9 @@ Route::middleware('auth')->group(function () {
     Route::post('attempts/{id}/like', [LikeController::class, 'store'])->name('likes.store');
     Route::delete('attempts/{id}/unlike', [LikeController::class, 'destroy'])->name('likes.destroy');
 
-    Route::get('/attempts/{id}/comments/create', [CommentController::class, 'create'])->name('comments.create');
-    Route::post('/attempts/{attempt}/comment', [CommentController::class, 'store'])->name('comments.store');
+    //Route::get('/attempts/{id}/comments/create', [CommentController::class, 'create'])->name('comments.create');
+    Route::get('/attempts/{id}/comments/create', CreateComment::class)->name('comments.create');
+    //Route::post('/attempts/{attempt}/comment', [CommentController::class, 'store'])->name('comments.store');
     Route::get('/attempts/{attempt}/comment/{comment}/edit', [CommentController::class, 'edit'])->name('comments.edit');
     Route::patch('attempts/{attempt}/comment/{comment}', [CommentController::class, 'update'])->name('comments.update');
     Route::delete('/attempts/{attempt}/comment/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');

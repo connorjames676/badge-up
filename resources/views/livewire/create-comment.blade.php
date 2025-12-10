@@ -1,8 +1,20 @@
 <div class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+    @if (session()->has('message'))
+        <p class="text-sm text-green-600">{{ session('message') }}</p>
+    @endif
+
+    <form wire:submit.prevent="save" class="space-y-2">
+        <x-input-label value="Make a comment:" style="margin-bottom: 10px;" />
+        <x-text-input type="text" class="w-full" wire:model.defer="content" style="margin-bottom: 10px;"/>
+        @error('content') <p class="text-sm text-red-600" style="margin-bottom: 5px;">{{ $message }}</p> @enderror
+
+        <x-primary-button style="margin-bottom: 10px;">Upload Comment</x-primary-button>
+    </form>
+
     <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight" style="margin-bottom: 10px;">
         Comments
     </h2>
-    @forelse ($comments as $comment)
+    @forelse ($attempt->comments as $comment)
         <article class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800" style="margin-bottom: 5px;">
             <div class="flex items-start justify-between gap-3">
                 <div>
@@ -42,5 +54,4 @@
     @empty
         <p class="text-gray-600 dark:text-gray-300">No comments yet. Be the first to comment!</p>
     @endforelse
-    {{ $comments->links() }}
 </div>

@@ -8,7 +8,7 @@
     </header>
 
     <div class="mt-3">
-        @forelse ($user->comments as $comment)
+        @forelse ($comments as $comment)
             <div class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 <article class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
                     <div class="flex items-start justify-between gap-3">
@@ -48,5 +48,6 @@
         @empty
             <p class="text-gray-600 dark:text-gray-300">No comments yet.</p>
         @endforelse
+        {{ $comments->links() }}
     </div>
 </section>

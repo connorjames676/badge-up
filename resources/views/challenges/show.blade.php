@@ -48,17 +48,28 @@
                                     <button type="submit">Delete</button>
                                 </form>
                             </div>
+                        @elseif (auth()->user()->role == 'admin')
+                            <div class="mt-4 flex w-full items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
+                                <form method="POST" action="{{ route('challenges.destroy', $challenge->id) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <!--<button type="submit">Remove Challenge</button>-->
+                                    <x-primary-button>Remove Challenge</x-primary-button>
+                                </form>
+                            </div>
                         @endif
                     </div>
 
                     @if ($hasJoined == False AND now()->between(2000-01-01, $challenge->end_date))
-                        <form method="POST" action="{{ route('challenge.join', $challenge->id)}}">
-                            @csrf
-                            @method('PATCH')
-                            <div class="flex items-center gap-4">
-                                <x-primary-button>Join</x-primary-button>
-                            </div>
-                        </form>
+                        @if (!(auth()->user()->role == 'admin'))
+                            <form method="POST" action="{{ route('challenge.join', $challenge->id)}}">
+                                @csrf
+                                @method('PATCH')
+                                <div class="flex items-center gap-4">
+                                    <x-primary-button>Join</x-primary-button>
+                                </div>
+                            </form>
+                        @endif
                     @elseif ($hasJoined == True AND now()->between(2000-01-01, $challenge->end_date))
                         <form method="POST" action="{{ route('challenge.leave', $challenge->id) }}">
                             @csrf
@@ -72,8 +83,11 @@
             </div>
             
             <div class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight" style="margin-bottom: 10px;">
+                    Attempts
+                </h2>
                 @forelse ($attempts as $attempt)
-                    <article class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                    <article class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800" style="margin-bottom: 3px;">
                         <div class="flex items-start justify-between gap-3">
                             <div>
                                 <h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100">
@@ -91,6 +105,7 @@
                 @empty
                     <p class="text-gray-600 dark:text-gray-300">No attempts yet. Be the first to post one!</p>
                 @endforelse
+                {{ $attempts->links() }}
             </div>  
         </div>
     </div>

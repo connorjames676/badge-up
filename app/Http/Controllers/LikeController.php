@@ -33,6 +33,8 @@ class LikeController extends Controller
             $attempt->increment('num_likes');
         }
 
+        //session()->flash('message', 'Like was successfully created.');
+
         return redirect()->route('attempts.show', $attempt->id);
     }
 
@@ -43,7 +45,7 @@ class LikeController extends Controller
 
         $attempt->decrement('num_likes');
 
-        session()->flash('message', 'Like was deleted.');
+        //session()->flash('message', 'Like was deleted.');
 
         return redirect()->route('attempts.show', $attempt->id);
     }

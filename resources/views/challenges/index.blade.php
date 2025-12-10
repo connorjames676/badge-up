@@ -45,6 +45,7 @@
                 @empty
                     <p class="text-gray-600 dark:text-gray-300">No challenges yet. Be the first to create one!</p>
                 @endforelse
+                {{ $challenges->links() }}
             </div>
         </div>
     </div>

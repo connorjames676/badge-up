@@ -26,7 +26,7 @@
                     </div>
 
                     <div class="flex items-center gap-4 text-white">
-                        <a href="{{ route('challenges.show', $challenge_id) }}">Cancel</a>
+                        <a href="{{ route('attempts.show', $attempt->id) }}">Cancel</a>
                     </div>
                 </form>
             </div>

@@ -35,13 +35,20 @@ class AttemptController extends Controller
         
         session()->flash('message', 'Attempt was created.');
         
-        return redirect()->route('challenges.show', $id);
+        return redirect()->route('attempts.show', $attempt->id);
     }
 
     public function show($id)
     {
         $attempt = Attempt::with('user')->with('comments')->findOrFail($id);
-        return view('attempts.show', ['attempt' => $attempt]);
+        $isAdmin = auth()->user()->role == 'admin';
+        $comments = $attempt->comments()->paginate(3);
+
+        return view('attempts.show', [
+            'attempt' => $attempt,
+            'isAdmin' => $isAdmin,
+            'comments' => $comments
+        ]);
     }
 
     public function edit($id)
@@ -66,7 +73,7 @@ class AttemptController extends Controller
         
         session()->flash('message', 'Attempt was updated.');
         
-        return redirect()->route('challenges.show', $attempt->challenge_id);
+        return redirect()->route('attempts.show', $attempt->id);
     }
 
     public function destroy($id)

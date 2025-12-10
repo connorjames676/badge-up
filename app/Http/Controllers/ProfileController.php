@@ -14,7 +14,15 @@ class ProfileController extends Controller
         $user = User::findOrFail($id);
         $isAdmin = $user->role == "admin";
 
-        return view('profile.show', ['user' => $user, 'isAdmin' => $isAdmin]);
+        $attempts = $user->attempts()->paginate(3);
+        $comments = $user->comments()->paginate(3);
+
+        return view('profile.show', [
+            'user' => $user,
+            'isAdmin' => $isAdmin,
+            'attempts' => $attempts,
+            'comments' => $comments
+        ]);
     }
 
     public function bioEdit()

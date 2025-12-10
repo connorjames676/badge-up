@@ -7,11 +7,21 @@ use App\Models\Challenge;
 use Illuminate\Http\Request;
 use App\Models\User;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
+
 class ChallengeController extends Controller
 {
     public function index()
     {
-        $challenges = Challenge::all();
+        //$challenges = Challenge::all();
+        //return view('challenges.index', ['challenges' => $challenges]);
+
+        /*return view('challenges.index', [
+            'challenges' => DB::table('challenges')->simplePaginate(5)
+        ]);*/
+
+        $challenges = Challenge::paginate(5);
         return view('challenges.index', ['challenges' => $challenges]);
     }
 
@@ -25,7 +35,7 @@ class ChallengeController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|max:255',
 		    'description' => 'max:255',
-		    'start_date' => 'required|date|after:now',
+		    'start_date' => 'required|date|after:yesterday',
 		    'end_date' => 'required|date|after:start_date',
 		]);
 		
@@ -48,9 +58,15 @@ class ChallengeController extends Controller
     {
         $challenge = Challenge::findOrFail($id);
         $hasJoined = auth()->user()->joinChallenges()->where('challenge_id', $challenge->id)->exists();
-        $attempts = Attempt::all()->where('challenge_id', $challenge->id);
+        //$attempts = Attempt::all()->where('challenge_id', $challenge->id);
 
-        return view('challenges.show', ['challenge' => $challenge, 'hasJoined' => $hasJoined, 'attempts' => $attempts]);
+        $attempts = $challenge->attempts()->paginate(3);
+
+        return view('challenges.show', [
+            'challenge' => $challenge,
+            'hasJoined' => $hasJoined,
+            'attempts' => $attempts
+        ]);
     }
 
     public function edit($id)
