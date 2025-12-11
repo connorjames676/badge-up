@@ -53,7 +53,6 @@
                                 <form method="POST" action="{{ route('challenges.destroy', $challenge->id) }}">
                                     @csrf
                                     @method('DELETE')
-                                    <!--<button type="submit">Remove Challenge</button>-->
                                     <x-primary-button>Remove Challenge</x-primary-button>
                                 </form>
                             </div>

@@ -15,8 +15,6 @@ class ProfileController extends Controller
         $user = User::findOrFail($id);
         $isAdmin = $user->role == "admin";
 
-        //$items = $user->attempts->merge($user->comments)->sortByDesc('created_at');
-
         $attempts = $user->attempts()->orderByDesc('created_at')->paginate(3);
         $comments = $user->comments()->orderByDesc('created_at')->paginate(3);
 
@@ -24,7 +22,6 @@ class ProfileController extends Controller
             'user' => $user,
             'isAdmin' => $isAdmin,
             'attempts' => $attempts,
-            //'items' => $items,
             'comments' => $comments
         ]);
     }
@@ -39,8 +36,7 @@ class ProfileController extends Controller
         $validatedData = $request->validate([
             'bio' => 'sometimes|required|max:255',
 		]);
-
-        //$profile = auth()->user()->profile;
+        
         $profile = Profile::findOrFail($id);
         $profile->bio = $validatedData['bio'];
         $profile->save();

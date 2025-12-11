@@ -2,25 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Attempt;
 use App\Models\Challenge;
 use Illuminate\Http\Request;
 use App\Models\User;
-
-use Illuminate\Support\Facades\DB;
-use Illuminate\View\View;
 
 class ChallengeController extends Controller
 {
     public function index()
     {
-        //$challenges = Challenge::all();
-        //return view('challenges.index', ['challenges' => $challenges]);
-
-        /*return view('challenges.index', [
-            'challenges' => DB::table('challenges')->simplePaginate(5)
-        ]);*/
-
         $challenges = Challenge::orderByDesc('start_date')->paginate(5);
         return view('challenges.index', ['challenges' => $challenges]);
     }
@@ -56,7 +45,6 @@ class ChallengeController extends Controller
     {
         $challenge = Challenge::findOrFail($id);
         $hasJoined = auth()->user()->joinChallenges()->where('challenge_id', $challenge->id)->exists();
-        //$attempts = Attempt::all()->where('challenge_id', $challenge->id);
 
         $attempts = $challenge->attempts()->paginate(3);
 

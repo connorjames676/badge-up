@@ -32,51 +32,33 @@
                     </p>
 
                     @if ($attempt->image)
-                        {{--<img src="{{ asset('storage/'.$attempt->image) }}" alt="{{ $attempt->title }}" class="mt-3 rounded">--}}
-                        {{--<img src="{{ Storage::disk('public')->url($attempt->image) }}" alt="{{ $attempt->title }}" class="mt-3 rounded">--}}
-                        
-                        {{--<img src="{{ asset('storage/app/public/attempts/3rmD3m8fMj4XlYYPDWZPx7BTeYnrCx71nYlgIyhR.jpg') }}">
-                        <img src="storage/app/public/attempts/3rmD3m8fMj4XlYYPDWZPx7BTeYnrCx71nYlgIyhR.jpg">
-                        <img src="storage/attempts/3rmD3m8fMj4XlYYPDWZPx7BTeYnrCx71nYlgIyhR.jpg">--}}
-
                         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 text-gray-200 shadow sm:rounded-lg">
                             <img src="{{ asset('attempts/'.$attempt->image) }}">
-                        </div>
-
-
-                        {{--@php
-                            echo asset('public/'.$attempt->image)
-                        @endphp--}}
-                        
+                        </div>                    
                     @endif
-                    {{-- <img src="{{ Storage::url($attempt->image) }}">--}}
                 </div>
             
                 <div class="flex justify-between">
                     <div class="mt-4 flex w-full items-center gap-3 text-m text-gray-500 dark:text-gray-400">
-                    @php $liked = $attempt->likes->contains('user_id', auth()->user()->id); @endphp
-                    @if (!$isAdmin)
-                        @if ($liked)
-                            <form method="POST" action="{{ route('likes.destroy', $attempt->id) }}">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-red-600">Liked</button>
-                            </form>
-                        @else
-                            <form method="POST" action="{{ route('likes.store', $attempt->id) }}">
-                                @csrf
-                                <button type="submit">Like</button>
-                            </form>
+                        @php $liked = $attempt->likes->contains('user_id', auth()->user()->id); @endphp
+                        @if (!$isAdmin)
+                            @if ($liked)
+                                <form method="POST" action="{{ route('likes.destroy', $attempt->id) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-600">Liked</button>
+                                </form>
+                            @else
+                                <form method="POST" action="{{ route('likes.store', $attempt->id) }}">
+                                    @csrf
+                                    <button type="submit">Like</button>
+                                </form>
+                            @endif
                         @endif
-                        {{-- <a href="{{ route('comments.create', $attempt->id) }}" class="hover:text-indigo-600">Comment</a> --}}
-                    @endif
 
-                    <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700 dark:bg-gray-700 dark:text-gray-200">
-                        {{ $attempt->num_likes }} likes
-                    </span>
-                    {{--<span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700 dark:bg-gray-700 dark:text-gray-200">
-                        {{ $attempt->num_comments }} comments
-                    </span>--}}
+                        <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700 dark:bg-gray-700 dark:text-gray-200">
+                            {{ $attempt->num_likes }} likes
+                        </span>
                     </div>
 
                     @if (auth()->user()->id == $attempt->challenge->user->id AND !$hasBeenApproved)
@@ -85,8 +67,6 @@
                                 @method('PATCH')
                                 <x-primary-button>Approve</x-primary-button>
                         </form>
-
-                        {{--<a href="{{ route('attempts.approve', $attempt->id) }}"><x-primary-button>Approve</x-primary-button></a>--}}
                     @endif
                 </div>
 
@@ -113,7 +93,6 @@
             </div>
 
             <livewire:create-comment :attempt_id="$attempt->id" />
-            {{--@include('comments.index', $comments)--}}
         </div>
     </div>
 </x-app-layout>

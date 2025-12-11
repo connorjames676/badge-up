@@ -33,8 +33,6 @@ class UserController extends Controller
 		    'email' => 'required|max:255',
             'password' => 'required|max:255',
 		]);
-		
-		//return "Passed Validation";
 
         $user = new User;
         $user->name = $validatedData['name'];

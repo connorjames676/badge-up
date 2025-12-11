@@ -29,7 +29,7 @@ class CommentController extends Controller
 
         $attempt->increment('num_comments');
 
-       // Send the user a notification of the comment
+        // Send the user a notification of the comment
         $user = $comment->user; 
         $attempt->user->notify(new AttemptInteracted($user, $attempt, 'like', null));
         

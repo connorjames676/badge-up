@@ -10,22 +10,6 @@ use App\Notifications\AttemptInteracted;
 
 class LikeController extends Controller
 {
-    /*public function store($id, Request $request)
-    {
-        $attempt = Attempt::findOrFail($id);
-
-        $like = new Like();
-        $like->user_id = auth()->user()->id;
-        $like->attempt_id = $attempt->id;
-        $like->save();
-
-        $attempt->increment('num_likes');
-        
-        session()->flash('message', 'Like was created.');
-        
-        return redirect()->route('attempts.show', $attempt);
-    }*/
-    
     public function store($id, Request $request)
     {
         $attempt = Attempt::findOrFail($id);
@@ -39,8 +23,6 @@ class LikeController extends Controller
         $user = $like->user; 
         $attempt->user->notify(new AttemptInteracted($user, $attempt, 'like', null));
 
-        //session()->flash('message', 'Like was successfully created.');
-
         return redirect()->route('attempts.show', $attempt->id);
     }
 
@@ -50,8 +32,6 @@ class LikeController extends Controller
         $attempt->likes()->where( 'user_id', auth()->user()->id)->delete();
 
         $attempt->decrement('num_likes');
-
-        //session()->flash('message', 'Like was deleted.');
 
         return redirect()->route('attempts.show', $attempt->id);
     }

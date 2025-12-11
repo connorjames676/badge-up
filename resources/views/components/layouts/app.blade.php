@@ -1,3 +1,5 @@
+{{-- Copied from resources/views/layouts/app.blade.php for Livewire to render the same layout --}}
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>

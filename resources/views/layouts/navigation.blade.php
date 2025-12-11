@@ -8,7 +8,6 @@
                     <a href="{{ route('dashboard') }}">
                         {{--<x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />--}}
                         <img src="{{ asset('logo.png') }}" alt="My Logo" class="h-20 w-auto max-w-[200px] object-contain">
-                        {{--<img src="{{ asset('logo.png') }}" alt="My Logo" class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200">--}}
                     </a>
                 </div>
 
@@ -17,10 +16,6 @@
                     <x-nav-link :href="route('challenges.index')" :active="request()->routeIs('challenges.*')">
                         {{ __('Challenges') }}
                     </x-nav-link>
-                    <!-- Added to add a Users link to Breeze template -->
-                    {{--<x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
-                        {{ __('Users') }}
-                    </x-nav-link>--}}
 
                     <!-- Added to add an Attempts link to Breeze template -->
                     <x-nav-link :href="route('attempts.index')" :active="request()->routeIs('attempts.index')">
@@ -85,9 +80,6 @@
             <!-- Implemented the buttons here for mobile too just because Breeze automatically did -->
             <x-responsive-nav-link :href="route('challenges.index')" :active="request()->routeIs('challenges.*')">
                 {{ __('Challenges') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
-                {{ __('Users') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('attempts.index')" :active="request()->routeIs('attempts.*')">
                 {{ __('Attempts') }}

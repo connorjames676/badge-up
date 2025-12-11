@@ -50,11 +50,7 @@
 
     <div>
         @if (!$user->image == Null)
-            {{--<img src="{{ asset('images/'.$user->image) }}" class="w-36 aspect-square rounded-full object-cover shrink-0">--}}
             <img src="{{ asset('images/'.$user->image) }}" class="profile-pic">
-            {{--<div class="p-4 sm:p-8 bg-white dark:bg-gray-800 text-gray-200 shadow sm:rounded-lg">
-                <img src="{{ asset('images/'.$user->image) }}">
-            </div>--}}
         @endif
     </div>
 

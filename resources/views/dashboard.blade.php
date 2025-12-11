@@ -10,14 +10,6 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-
-            @php
-                /*$joined = auth()->user()->joinChallenges;
-                $active = $joined->filter(fn($challenge) => now()->between($challenge->start_date, $challenge->end_date));
-                $upcoming = $joined->filter(fn($challenge) => now()->lt($challenge->start_date));
-                $past = $joined->filter(fn($challenge) => now()->gt($challenge->end_date));*/
-            @endphp
-
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 text-gray-200 shadow sm:rounded-lg">
                 <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight " style="margin-bottom: 20px">Active challenges:</h2>
                 
@@ -140,14 +132,6 @@
                     {{ $past->links() }}
                 @endif
             </div>
-
-
-            {{--<div class="p-4 sm:p-8 bg-white dark:bg-gray-800 text-gray-200 shadow sm:rounded-lg">
-                <img src="{{ asset('images/lineup-builder.png') }}">
-            </div>--}}
-
-
-
         </div>
     </div>
 </x-app-layout>

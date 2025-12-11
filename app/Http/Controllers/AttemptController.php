@@ -83,7 +83,6 @@ class AttemptController extends Controller
         $attempt->title = $validatedData['title'];
         $attempt->description = $validatedData['description'];
         $attempt->save();
-        //$attempt->update($validatedData);
         
         session()->flash('message', 'Attempt was updated.');
         
@@ -113,9 +112,11 @@ class AttemptController extends Controller
     public function approve($id) {
         $attempt = Attempt::findOrFail($id);
 
+        // Update attempt
         $attempt->approved = True;
         $attempt->save();
 
+        // Create badge
         $badge = new Badge();
         $badge->title = $attempt->challenge->title;
         $badge->description = $attempt->challenge->description;
@@ -123,6 +124,7 @@ class AttemptController extends Controller
         $badge->challenge_id = $attempt->challenge->id;
         $badge->save();
 
+        // Update profile
         $profile = $attempt->user->profile;
         $profile->number_of_badges++;
         $profile->save();
