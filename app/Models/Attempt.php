@@ -9,6 +9,14 @@ class Attempt extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'description',
+        'image',
+        'user_id',
+        'challenge_id'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

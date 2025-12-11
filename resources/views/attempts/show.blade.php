@@ -30,6 +30,13 @@
                     <p class="text-sm text-gray-500 dark:text-gray-400">
                         by <a href="{{ route('profile.show', $attempt->user_id) }}">{{ $attempt->user->name ?? 'Unknown' }}</a>
                     </p>
+
+                    @if ($attempt->image)
+                        {{--<img src="{{ asset('storage/'.$attempt->image) }}" alt="{{ $attempt->title }}" class="mt-3 rounded">--}}
+                        <img src="{{ Storage::disk('public')->url($attempt->image) }}" alt="{{ $attempt->title }}" class="mt-3 rounded">
+                        
+                    @endif
+                    {{-- <img src="{{ Storage::url($attempt->image) }}">--}}
                 </div>
             
                 <div class="flex justify-between">
