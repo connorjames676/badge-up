@@ -20,6 +20,6 @@ class ChallengeTableSeeder extends Seeder
         $myChallenge->coach_id = 1; // Connor is a coach
         $myChallenge->save();
 
-        Challenge::factory()->count(30)->create();
+        //Challenge::factory()->count(30)->create();
     }
 }

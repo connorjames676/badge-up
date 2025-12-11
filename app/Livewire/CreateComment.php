@@ -3,7 +3,6 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\User;
 use App\Models\Attempt;
 use App\Models\Comment;
 
@@ -40,9 +39,6 @@ class CreateComment extends Component
         // Send the user a notification of the comment
         $user = $comment->user; 
         $this->attempt->user->notify(new AttemptInteracted($user, $this->attempt, 'comment', $comment));
-
-        //$this->reset('content');
-        //$this->dispatch('comment-added');
     }
 
     public function render()

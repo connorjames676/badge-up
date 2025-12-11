@@ -33,7 +33,20 @@
 
                     @if ($attempt->image)
                         {{--<img src="{{ asset('storage/'.$attempt->image) }}" alt="{{ $attempt->title }}" class="mt-3 rounded">--}}
-                        <img src="{{ Storage::disk('public')->url($attempt->image) }}" alt="{{ $attempt->title }}" class="mt-3 rounded">
+                        {{--<img src="{{ Storage::disk('public')->url($attempt->image) }}" alt="{{ $attempt->title }}" class="mt-3 rounded">--}}
+                        
+                        {{--<img src="{{ asset('storage/app/public/attempts/3rmD3m8fMj4XlYYPDWZPx7BTeYnrCx71nYlgIyhR.jpg') }}">
+                        <img src="storage/app/public/attempts/3rmD3m8fMj4XlYYPDWZPx7BTeYnrCx71nYlgIyhR.jpg">
+                        <img src="storage/attempts/3rmD3m8fMj4XlYYPDWZPx7BTeYnrCx71nYlgIyhR.jpg">--}}
+
+                        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 text-gray-200 shadow sm:rounded-lg">
+                            <img src="{{ asset('attempts/'.$attempt->image) }}">
+                        </div>
+
+
+                        {{--@php
+                            echo asset('public/'.$attempt->image)
+                        @endphp--}}
                         
                     @endif
                     {{-- <img src="{{ Storage::url($attempt->image) }}">--}}

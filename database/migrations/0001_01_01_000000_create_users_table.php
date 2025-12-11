@@ -20,6 +20,8 @@ return new class extends Migration
             $table->integer('age');
             // Represents levels of access, all users are either a coach or participant
             $table->enum('role', ['coach','participant', 'admin']);
+            // To allow a user to have a profile picture
+            $table->string('image')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

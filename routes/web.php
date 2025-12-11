@@ -68,9 +68,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile/bio/{id}', [ProfileController::class, 'bioUpdate'])->name('bio.update');
     Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/{user}/badges', [ProfileController::class, 'badges'])->name('badges.index');
+    Route::patch('/profile/{user}/image', [ProfileController::class, 'image'])->name('image.upload');
+
     //Route::get('/profile/{id}', [ProfileController::class, 'showOther'])->name('profile.show-other');
 
-    Route::get('/attempts', [AttemptController::class, 'index'])->name('attempts.index');
+    //Route::get('/attempts', [AttemptController::class, 'index'])->name('attempts.index');
+    Route::get('/atempts', [AttemptController::class, 'index'])->name('attempts.index');
     //Route::get('/attempts/create', [AttemptController::class, 'create'])->name('attempts.create');
     Route::get('/challenges/{id}/attempts/create', [AttemptController::class, 'create'])->name('attempts.create');
     Route::post('/challenges/{id}/attempts', [AttemptController::class, 'store'])->name('attempts.store');

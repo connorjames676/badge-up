@@ -9,7 +9,7 @@
 
     <div class="mt-3">
         @forelse ($comments as $comment)
-            <div class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            <div class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight" style="margin-bottom: 3px;">
                 <article class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
                     <div class="flex items-start justify-between gap-3">
                         @php

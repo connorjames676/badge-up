@@ -18,6 +18,6 @@ class ProfileTableSeeder extends Seeder
         $myProfile->user_id = 1; // Connor
         $myProfile->save();
 
-        Profile::factory()->count(50)->create();
+        //Profile::factory()->count(50)->create();
     }
 }

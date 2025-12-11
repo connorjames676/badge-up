@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <form method="POST" action="{{ route('attempts.store', $id) }}" class="mt-6 space-y-6">
+                <form method="POST" action="{{ route('attempts.store', $id) }}" enctype="multipart/form-data" class="mt-6 space-y-6">
                     @csrf
                     <div>
                         <x-input-label value="Title" />
@@ -16,6 +16,9 @@
 
                         <x-input-label value="Description" />
                         <x-text-input type="text" name="description" class="mt-1 block w-full" style="margin-bottom: 5px" :value="old( 'description')" />
+
+                        <x-input-label value="Upload an Image (optional)" style="margin-bottom: 3px" />
+                        <input type="file" name="image">
                     </div>
 
                     @include('layouts.error')

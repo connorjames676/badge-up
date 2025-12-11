@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('description');
+            // To allow an attempt's image to be accessed from local storage
+            $table->string('image')->nullable();
             // Checks if coach has approved of the challenge attempt
             $table->boolean('approved')->default(false); 
             $table->bigInteger('user_id')->unsigned();

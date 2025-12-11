@@ -56,4 +56,25 @@ class ProfileController extends Controller
         
         return view('badges.index', ['user' => $user, 'badges' => $badges]);
     }
+
+    public function image($id, Request $request)
+    {
+        $request->validate([
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+		]);
+
+        $imageName = null;
+        if ($request->hasFile('image')) {
+            // Code obtained from Stackoverflow: "How to upload an image using Laravel?"
+            $imageName = time().'.'.request()->image->getClientOriginalExtension();
+            $request->image->move(public_path(path: 'images'), $imageName);
+        }
+
+        $user = User::findOrFail($id);
+        $user->image = $imageName;
+        $user->save();
+        
+        return redirect()->route('profile.show', $user);
+
+    }
 }

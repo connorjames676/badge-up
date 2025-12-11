@@ -48,7 +48,7 @@ class AttemptInteracted extends Notification
             ->lineIf($this->action == 'like', "You are receiving this email because {$this->personWhoInteracted->name} has liked your attempt.")
             ->lineIf($this->action == 'comment', "You are receiving this email because {$this->personWhoInteracted->name} has commented on your attempt.")
             ->action('View your Attempt', url("/attempts/{$this->attemptInteracted->id}"))
-            ->line('Thank you for using my application!');
+            ->line('Thank you for using BadgeUp!');
     }
 
     /**

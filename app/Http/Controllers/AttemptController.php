@@ -6,12 +6,13 @@ use App\Models\Attempt;
 use App\Models\Badge;
 use App\Models\Challenge;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AttemptController extends Controller
 {
     public function index()
     {
-        $attempts = Attempt::orderByDesc('created_at')->paginate(7);
+        $attempts = Attempt::orderByDesc('created_at')->paginate(4);
         return view('attempts.index', ['attempts' => $attempts]);
     }
 
@@ -22,18 +23,27 @@ class AttemptController extends Controller
 
     public function store($id, Request $request)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'title' => 'required|max:255',
 		    'description' => 'required|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg',
 		]);
 
-        $attempt = new Attempt();
-        $attempt->title = $validatedData['title'];
-        $attempt->description = $validatedData['description'];
-        $attempt->user_id = auth()->user()->id;
-        $attempt->challenge_id = $id;
-        $attempt->save();
-        
+        $imageName = null;
+        if ($request->hasFile('image')) {
+            // Code obtained from Stackoverflow: "How to upload an image using Laravel?"
+            $imageName = time().'.'.request()->image->getClientOriginalExtension();
+            $request->image->move(public_path(path: 'attempts'), $imageName);
+        }
+
+        $attempt = Attempt::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'user_id' => auth()->user()->id,
+            'challenge_id' => $id,
+            'image' => $imageName,
+        ]);
+
         session()->flash('message', 'Attempt was created.');
         
         return redirect()->route('attempts.show', $attempt->id);

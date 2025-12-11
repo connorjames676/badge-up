@@ -38,8 +38,6 @@ class ChallengeController extends Controller
 		    'start_date' => 'required|date|after:yesterday',
 		    'end_date' => 'required|date|after:start_date',
 		]);
-		
-		//return "Passed Validation";
 
         $challenge = new Challenge();
         $challenge->title = $validatedData['title'];
