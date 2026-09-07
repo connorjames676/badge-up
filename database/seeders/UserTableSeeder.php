@@ -14,7 +14,7 @@ class UserTableSeeder extends Seeder
     {
         $me = new User;
         $me->name = "Connor James";
-        $me->email = "2326609@swansea.ac.uk";
+        $me->email = "connor@swansea.ac.uk";
         $me->password = "password";
         $me->age = 20;
         $me->role = "coach";
